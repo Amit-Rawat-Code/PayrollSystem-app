@@ -1,0 +1,60 @@
+<div class="container mt-3">
+
+  <div class="row mb-3">
+    <div class="col-md-3">
+        <label>Department</label>
+        <select id="Department" [(ngModel)]="deptId" class="form-control" (change)="loadEmployeeSalary()">
+            <option value="0">Select</option>
+            <option *ngFor="let dept of departmentList;" [ngValue]="dept.DepartmentId">
+                {{dept.DepartmentName}}
+            </option>
+        </select>
+    </div>
+    <div class="col-md-3">
+      <label>Month</label>
+      <input type="number" [(ngModel)]="month" class="form-control" (change)="loadEmployeeSalary()">
+    </div>
+
+    <div class="col-md-3">
+      <label>Year</label>
+      <input type="number" [(ngModel)]="year" class="form-control" (change)="loadEmployeeSalary()">
+    </div>
+
+    <div class="col-md-3 mt-4">
+      <button class="btn btn-primary" (click)="calculateSalary()">
+        Calculate Salary
+      </button>
+    </div>
+  </div>
+
+  <div *ngIf="loading">Loading...</div>
+
+  <table class="table table-bordered" *ngIf="employeesSalLis.length > 0">
+    <thead>
+      <tr>
+        <th>Employee</th>
+        <th>Present Days</th>
+        <th>Total Hours</th>
+        <th>Gross</th>
+        <th>PF</th>
+        <th>ESI</th>
+        <th>Tax</th>
+        <th>Net</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <tr *ngFor="let emp of employeesSalLis;let i=index;">
+        <td>{{ emp.EmployeeName }}</td>
+        <td>{{ emp.PresentDays }}</td>
+        <td>{{ emp.TotalHours }}</td>
+        <td>{{ emp.GrossSalary }}</td>
+        <td>{{ emp.PF }}</td>
+        <td>{{ emp.ESI }}</td>
+        <td>{{ emp.ProfessionalTax }}</td>
+        <td>{{ emp.NetSalary }}</td>
+      </tr>
+    </tbody>
+  </table>
+
+</div>

@@ -1,0 +1,148 @@
+<div class="container">
+    <form [formGroup]="empOfficialDetailForm" (ngSubmit)="SaveForm()">
+        <div class="row mb-2">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="DepartmentId">Department</label>
+                    <select class="form-control" [class.is-invalid]="f['DepartmentId'].touched && f['DepartmentId'].invalid" id="DepartmentId" formControlName="DepartmentId">
+                        <option value="0">Select</option>
+                        <option *ngFor="let dept of departmentList;let i=index;" [value]="dept.DepartmentId">
+                            {{dept.DepartmentName}}
+                        </option>
+                    </select>
+                </div>
+                <div class="alert alert-danger" *ngIf="f['DepartmentId'].touched && f['DepartmentId'].invalid">
+                    <div *ngIf="f['DepartmentId'].errors && f['DepartmentId'].errors['notZero']" >
+                        Department required
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="DesignationId">Designation</label>
+                    <select class="form-control" [class.is-invalid]="f['DesignationId'].touched && f['DesignationId'].invalid" id="DesignationId" formControlName="DesignationId">
+                        <option value="0">Select</option>
+                        <option *ngFor="let desn of designationList;let i=index;" [value]="desn.DesignationId">
+                            {{desn.DesignationName}}
+                        </option>
+                    </select>
+                </div>
+                <div class="alert alert-danger" *ngIf="f['DesignationId'].touched && f['DesignationId'].invalid">
+                    <div *ngIf="f['DesignationId'].errors && f['DesignationId'].errors['notZero']" >
+                        Designation required
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row mb-2">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="EmployeeId">Employee</label>
+                    <select class="form-control" [class.is-invalid]="f['EmployeeId'].touched && f['EmployeeId'].invalid" id="EmployeeId" formControlName="EmployeeId">
+                        <option value="0">Select</option>
+                        <option *ngFor="let emp of employeeList;let i=index;" [value]="emp.employeeId">
+                            {{emp.employeeName}}
+                        </option>
+                    </select>
+                </div>
+                <div class="alert alert-danger" *ngIf="f['EmployeeId'].touched && f['EmployeeId'].invalid">
+                    <div *ngIf="f['EmployeeId'].errors && f['EmployeeId'].errors['required']">
+                        Employee is required
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="DOJ">DOJ</label>
+                    <input type="date" [class.is-invalid]="f['DOJ'].touched && f['DOJ'].invalid" id="DOJ" formControlName="DOJ" class="form-control">
+                </div>
+                <div class="alert alert-danger" *ngIf="f['DOJ'].touched && f['DOJ'].invalid">
+                    <div *ngIf="f['DOJ'].errors && f['DOJ'].errors['required']">
+                        DOJ is required
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row mb-3">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="EmploymentType">Employment Type</label>
+                    <select [class.is-invalid]="f['EmploymentType'].touched && f['EmploymentType'].invalid" id="EmploymentType" formControlName="EmploymentType" class="form-control">
+                        <option value="">Select</option>
+                        <option value="Permanent">Permanent</option>
+                        <option value="Temporary">Temporary</option>
+                        <option value="Hourly">Hourly</option>
+                    </select>
+                </div>
+                <div class="alert alert-danger" *ngIf="f['EmploymentType'].touched && f['EmploymentType'].invalid">
+                    <div *ngIf="f['EmploymentType'].errors && f['EmploymentType'].errors['required']">
+                        Employment Type is required
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="ReportingManagerId">Reporting Manager</label>
+                    <select name="ReportingManagerId" id="ReportingManagerId" formControlName="ReportingManagerId" class="form-control">
+                        <option value="0">Select</option>
+                        <option *ngFor="let emp of empListForManager;" [value]="emp.EmployeeId">{{emp.EmployeeName}}</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+        <div class="row mb-3">
+            <div class="col-md-3 d-grid">
+                <button type="submit" class="btn btn-success" 
+                [class.disabled]="empOfficialDetailForm.value.EmpOfficeId!=0
+                ||empOfficialDetailForm.invalid" 
+                >Save</button>
+            </div>
+            <div class="col-md-3 d-grid">
+                <button type="submit" class="btn btn-primary" [class.disabled]="empOfficialDetailForm.value.EmpOfficeId==0" >Update</button>
+            </div>
+            <div class="col-md-3 d-grid">
+                <button type="button" class="btn btn-danger" (click)="openDelete()" [class.disabled]="empOfficialDetailForm.value.EmpOfficeId==0" >Delete</button>
+            </div>
+            <div class="col-md-3 d-grid">
+                <button type="button" [disabled]="!hasValue" (click)="ResetForm()" class="btn btn-warning" >Clear</button>
+            </div>        
+        </div>
+    </form>
+    <div class="row">
+        <div class="col-md-12" *ngIf="empOfficialDetailList.length>0">
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Department</th>
+                        <th>Designation</th>
+                        <th>Employee</th>
+                        <th>Employment Type</th>
+                        <th>DOJ</th>
+                        <th class="text-center">Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let empOff of empOfficialDetailList;let i=index;">
+                        <td>{{i+1}}</td>
+                        <td>{{empOff.DepartmentName}}</td>
+                        <td>{{empOff.DesignationName}}</td>
+                        <td>{{empOff.EmployeeName}}</td>
+                        <td>{{empOff.EmploymentType}}</td>
+                        <td>{{empOff.DOJ|date:'dd-MM-yyyy'}}</td>
+                        <td class="text-center"><button type="button" class="btn btn-info" (click)="EditEmployeeOffDetail(empOff)"><i class="bi bi-pencil-square"></i></button></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<app-modal-component
+  [title]="modalConfig.title"
+  [isOpen]="modalConfig.isModalOpen"
+  [type]="modalConfig.type"
+  [message]="modalConfig.message"
+  (close)="handleClose()"
+  (confirm)="handleConfirm()">
+</app-modal-component>

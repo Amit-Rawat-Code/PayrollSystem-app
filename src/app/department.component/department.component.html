@@ -1,0 +1,71 @@
+<div class="container mt-4">
+
+<h3>Department Form</h3>
+
+<form [formGroup]="departmentForm" (ngSubmit)="saveDepartment()">
+
+<div class="mb-3">
+<label>Department Name</label>
+<input type="text" class="form-control" formControlName="DepartmentName">
+</div>
+
+<div class="mb-3">
+<label>Description</label>
+<textarea class="form-control" formControlName="Description"></textarea>
+</div>
+
+<div class="mb-3 form-check">
+<input type="checkbox" formControlName="IsActive" class="form-check-input">
+<label class="form-check-label">Active</label>
+</div>
+
+<button class="btn btn-primary">Save</button>
+
+</form>
+
+<hr>
+
+<h3>Department List</h3>
+
+<table class="table table-bordered">
+
+<thead>
+<tr>
+<th>Id</th>
+<th>Name</th>
+<th>Description</th>
+<th>Active</th>
+<th>Action</th>
+</tr>
+</thead>
+
+<tbody>
+
+<tr *ngFor="let dept of departments">
+
+<td>{{dept.DepartmentId}}</td>
+<td>{{dept.DepartmentName}}</td>
+<td>{{dept.Description}}</td>
+<td>{{dept.IsActive}}</td>
+
+<td>
+
+<button class="btn btn-warning btn-sm"
+(click)="editDepartment(dept)">
+Edit
+</button>
+
+<button class="btn btn-danger btn-sm"
+(click)="deleteDepartment(dept.DepartmentId)">
+Delete
+</button>
+
+</td>
+
+</tr>
+
+</tbody>
+
+</table>
+
+</div>

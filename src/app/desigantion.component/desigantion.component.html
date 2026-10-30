@@ -1,0 +1,89 @@
+<div class="container">
+    <form [formGroup]="designationForm" (ngSubmit)="SaveDesignation()">
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="DepartmentId">Department</label>
+                    <select formControlName="DepartmentId" class="form-control" name="DepartmentId" id="DepartmentId" >
+                        <option value="0">Select Department</option>
+                        <option *ngFor="let dept of department" [value]="dept.DepartmentId">{{dept.DepartmentName}}</option>
+                    </select>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="DesignationName">Designation</label>
+                    <input type="text" formControlName="DesignationName" class="form-control" name="DesignationName" id="DesignationName">
+                </div>
+            </div>            
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="form-group">
+                    <label for="Description">Description</label>
+                    <textarea formControlName="Description" class="form-control" name="Description" id="Description"></textarea>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-check">
+                    <label for="IsActive">Status</label>
+                    <input type="checkbox" class="form-check-input" formControlName="IsActive" name="IsActive" id="IsActive">                    
+                </div>
+            </div>
+        </div>
+        <div class="row mb-4">
+            <div class="col-md-3 d-grid">
+                <button type="submit" [class.disabled]="designationForm.value.DesignationId!=0" class="btn btn-success">Save</button>
+            </div>
+            <div class="col-md-3 d-grid">
+                <button type="submit" [class.disabled]="designationForm.value.DesignationId==0" class="btn btn-primary">Update</button>
+            </div>
+            <div class="col-md-3 d-grid">
+                <button type="button" [class.disabled]="designationForm.value.DesignationId==0" class="btn btn-danger" (click)="openDelete()" >Delete</button>
+            </div>
+            <div class="col-md-3 d-grid">
+                <button type="button" class="btn btn-warning" [disabled]="!hasValue" (click)="ResetForm()">Clear</button>
+            </div>
+        </div>
+    </form>    
+    <div class="row">
+        <div class="col-md-12">
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>DesignationName</th>
+                        <th>Status</th>
+                        <th>Created On</th>
+                        <th>Created By</th>
+                        <th>Updated On</th>
+                        <th>Updated By</th>
+                        <th class="text-center">Action</th>
+                    </tr>                    
+                </thead>
+                <tbody>
+                    <tr *ngFor="let desn of designation;let i = index;">
+                        <td>{{i+1}}</td>
+                        <td>{{desn.DesignationName}}</td>
+                        <td>{{desn.IsActive?'Yes':'No'}}</td>
+                        <td>{{desn.CreatedOn | date:'dd-MM-yyyy HH:mm:ss'}}</td>
+                        <td>{{desn.CreatedBy}}</td>
+                        <td>{{desn.UpdatedOn}}</td>
+                        <td>{{desn.UpdatedBy}}</td>
+                        <td class="text-center"><button type="button" class="btn btn-info" (click)="EditDesignation(desn)"><i class="bi bi-pencil-square"></i></button></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<app-modal-component
+[title]="'Delete Designation'"
+[isOpen]="isModelOpen"
+(close)="isModelOpen=false"
+(confirm)="DeleteDesignation()">        
+<p>Are you sure you want to delete this Designation?</p>
+</app-modal-component>

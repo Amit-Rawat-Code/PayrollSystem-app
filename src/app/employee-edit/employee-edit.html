@@ -1,0 +1,79 @@
+<div class="container">    
+    <form #EditForm="ngForm" (ngSubmit)="Update(EditForm.value)" novalidate>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="col-md-6"><a routerLink="/emp-list" class="text-info"><i class="bi bi-arrow-left-circle-fill me-2"></i><span>Go to list</span></a></div>
+            </div>
+        </div>
+        <div class="row">
+            <!-- {{EditForm.value| json}}
+            {{employee | json}} -->
+            <div class="col-md-6">
+                <label for="employeeId">Id</label>
+                <div class="form-group mb-2">                
+                    <input type="text" #employeeId name="employeeId" [(ngModel)]="employee.employeeId" class="form-control" ngModel id="employeeId" [readonly]="true">
+                </div>
+            </div>
+            <div class="col-md-6">
+                <label for="employeeName">Name</label>
+                <div class="form-group mb-2">                
+                    <input type="text" #employeeName name="employeeName" [(ngModel)]="employee.employeeName" class="form-control" ngModel id="employeeName">
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <label for="empCode">Employee Code</label>
+                <div class="form-group mb-2">                
+                    <input type="text" #empCode name="empCode" [(ngModel)]="employee.empCode" class="form-control" ngModel id="empCode">
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <label for="mobile">Mobile</label>
+                <div class="form-group mb-2">                
+                    <input type="text" #mobile name="mobile" [(ngModel)]="employee.mobile" class="form-control" ngModel id="mobile">
+                </div>
+            </div>
+            <div class="col-md-6">
+                <label >Gender</label>
+                <div class="form-check">
+                    <input type="radio" #gender name="gender" [(ngModel)]="employee.gender" class="form-check-input" ngModel id="gender1" value="Male">
+                    <label for="gender1">Male</label>
+                </div>
+                <div class="form-check">
+                    <input type="radio" #gender name="gender" [(ngModel)]="employee.gender" class="form-check-input" ngModel id="gender2" value="Female">
+                    <label for="gender2">Male</label>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <label for="dob">Dob</label>
+                <div class="form-group">
+                    <input type="date" #dob name="dob" id="dob" [(ngModel)]="employee.dob" class="form-control">
+                </div>
+            </div>
+            <div class="col-md-6">
+                <label>Address</label>
+                <div class="form-group">
+                    <textarea #address name="address" id="address" [(ngModel)]="employee.address" class="form-control"></textarea>
+                </div>
+            </div>
+        </div>
+        <div class="row mb-4">
+            <div class="col-md-12">
+                <div class="form-check">
+                    <input type="checkbox" required class="form-check-input" #isManager="ngModel" [(ngModel)]="employee.isManager" ngModel name="isManager" id="isManager" >
+                    <label for="isManager">Check if Manager</label>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-3 d-grid">
+                <button type="submit" [class.disabled]="EditForm.invalid" class="btn btn-warning">Submit</button>
+            </div>
+        </div>
+    </form>
+</div>

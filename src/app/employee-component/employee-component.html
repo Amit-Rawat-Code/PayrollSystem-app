@@ -1,0 +1,103 @@
+<!-- <div class="container">
+    <div class="row">
+        <div class="col-md-8">
+            <form #employeeForm ='ngForm' (ngSubmit)="Save(employeeForm)" novalidate>
+            <div class="form-group mb-2">
+                <label >Employee Name</label>
+                <input type="text" #employeeName="ngModel" minlength="3" maxlength="20" required [class.is-invalid]="employeeName.touched && employeeName.invalid" class="form-control" [(ngModel)]="emp.employeeName" name="employeeName" ngModel >
+            </div>
+            <div class="alert alert-danger" *ngIf="employeeName.touched && employeeName.invalid">
+                <div *ngIf="employeeName.errors && employeeName.errors['required']">
+                    Name is required
+                </div>
+                <div *ngIf="employeeName.errors && employeeName.errors['minlength']">
+                    Minimum 3 digit required
+                </div>
+            </div>
+            <div class="form-group mb-2">
+                <label >Age</label>
+                <input type="number" #employeeAge="ngModel" min="10" max="50" required [class.is-invalid]="employeeAge.touched && employeeAge.invalid" class="form-control" [(ngModel)]="emp.employeeAge" name="employeeAge" ngModel >
+            </div>
+            <div class="alert alert-danger" *ngIf="employeeAge.touched && employeeAge.invalid">
+                <div *ngIf="employeeAge.errors && employeeAge.errors['required']">
+                    Age is required
+                </div>
+                <div *ngIf="employeeAge.errors && employeeAge.errors['min']">
+                    Minimum age shoud be 10
+                </div>
+                <div *ngIf="employeeAge.errors && employeeAge.errors['max']">
+                    Maximum age shoud be 50
+                </div>
+            </div>
+            <div class="form-group mb-2">
+                <label >Email</label>
+                <input type="email" #employeeEmail="ngModel" pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$" required [class.is-invalid]="employeeEmail.touched && employeeEmail.invalid" class="form-control" [(ngModel)]="emp.employeeEmail" name="employeeEmail" ngModel >
+            </div>
+            <div class="alert alert-danger" *ngIf="employeeEmail.touched && employeeEmail.invalid">
+                <div *ngIf="employeeEmail.errors && employeeEmail.errors['required']">
+                    Email is required
+                </div>
+                <div *ngIf="employeeEmail.errors && employeeEmail.errors['pattern']">
+                    Invalid Email
+                </div>
+            </div>
+            <div class="form-group mb-2">
+                <label >Password</label>
+                <input type="text" #password="ngModel" pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$" required [class.is-invalid]="password.touched && password.invalid" class="form-control" [(ngModel)]="emp.password" name="password" ngModel >
+            </div>
+            <div class="alert alert-danger" *ngIf="password.touched && password.invalid">
+                <div *ngIf="password.errors && password.errors['required']">
+                    Password is required
+                </div>
+                <div *ngIf="password.errors && password.errors['pattern']">
+                    Invalid Password
+                </div>
+            </div>
+            <label >Select Gender</label>
+            <div class="form-check">
+                <input type="radio" #gender="ngModel" [(ngModel)]="emp.gender" ngModel required name="gender" value="Male" class="form-check-input">
+                <label >Male</label>
+            </div>
+            <div class="form-check">
+                <input type="radio" #gender="ngModel" [(ngModel)]="emp.gender" ngModel required name="gender" value="Female" class="form-check-input">
+                <label >Female</label>
+            </div>
+            <label>Country</label>
+            <div class="form-group mb-2">
+                <select #country="ngModel" name="country" required [class.is-invalid]="country.touched && country.invalid" class="form-control" ngModel [(ngModel)]="emp.country" id="">
+                    <option value="">Select</option>
+                    <option value="UK">UK</option>
+                    <option value="India">India</option>
+                    <option value="France">France</option>
+                </select>
+            </div>
+            <div class="alert alert-danger" *ngIf="country.touched && country.invalid">
+                <div *ngIf="country.errors && country.errors['required']">
+                    Country is required
+                </div>
+            </div>
+            <label >Select Hobbies</label>
+            <div class="form-check">
+                <input type="checkbox" (change)="onChange($event)"  ngModel name="hobbies" value="Singing" class="form-check-input">
+                <label >Singing</label>
+            </div>
+            <div class="form-check">
+                <input type="checkbox" (change)="onChange($event)" ngModel name="hobbies" value="Reading" class="form-check-input">
+                <label >Reading</label>
+            </div>
+            <div class="form-check mb-3">
+                <input type="checkbox" (change)="onChange($event)" ngModel name="hobbies" value="Writing" class="form-check-input">
+                <label >Writing</label>
+            </div>
+            <div class="form-check mb-2">
+                <input type="checkbox" #accept="ngModel" required ngModel name="accept" class="form-check-input" >
+                <label >Accept terms and conditions</label>
+            </div>
+            <div class="d-grid">
+                <button type="submit" [class.disabled]="employeeForm.invalid || selectedArray.length==0" class="btn btn-primary mb-2">Save</button>
+                <button type="button" (click)="ResetForm(employeeForm)" class="btn btn-warning">Reset Form</button>
+            </div>            
+            </form>            
+        </div>
+    </div>
+</div> -->

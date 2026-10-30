@@ -1,0 +1,156 @@
+<div class="container">
+    <div class="row mb-4">
+        <div class="col-md-12">
+            <form [formGroup]="salaryStructureForm" (ngSubmit)="SaveSalaryStructure()">
+                <div class="row mb-2">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="EmployeeId">Employee</label>
+                            <select formControlName="EmployeeId" id="EmployeeId" class="form-control"
+                             [class.is-invalid]="(f['EmployeeId'].touched || f['EmployeeId'].dirty) && f['EmployeeId'].invalid">
+                                <option [ngValue]="0">Select</option>
+                                <option *ngFor="let emp of employeeList;" [ngValue]="emp.employeeId">
+                                    {{emp.empCode}} - {{emp.employeeName}}
+                                </option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label for="SalaryType">Salary Type</label>
+                            <select formControlName="SalaryType" id="SalaryType" class="form-control"
+                             [class.is-invalid]="(f['SalaryType'].touched || f['SalaryType'].dirty) && f['SalaryType'].invalid">
+                                <option value="0">Select</option>
+                                <option value="1">Monthly</option>
+                                <option value="2">Daily</option>
+                                <option value="3">Hourly</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label for="EffectiveFrom">Effective From</label>
+                            <input type="date" formControlName="EffectiveFrom" id="EffectiveFrom" class="form-control"
+                            [class.is-invalid]="(f['EffectiveFrom'].touched || f['EffectiveFrom'].dirty) && f['EffectiveFrom'].invalid">
+                        </div>
+                    </div>
+                </div>
+                <div class="row mb-2">
+                    <div class="col-md-2">
+                        <label for="Basic">Basic</label>
+                        <input type="number" formControlName="Basic" id="Basic" class="form-control"
+                        [class.is-invalid]="(f['Basic'].touched || f['Basic'].dirty) && f['Basic'].invalid">
+                    </div>
+                    <div class="col-md-2">
+                        <label for="ConveyanceAllowance">Conveyance Allowance</label>
+                        <input type="number" formControlName="ConveyanceAllowance" id="ConveyanceAllowance" class="form-control"
+                        [class.is-invalid]="(f['ConveyanceAllowance'].touched || f['ConveyanceAllowance'].dirty) && f['ConveyanceAllowance'].invalid">
+                    </div>
+                    <div class="col-md-2">
+                        <label for="DA">DA</label>
+                        <input type="number" formControlName="DA" id="DA" class="form-control"
+                        [class.is-invalid]="(f['DA'].touched || f['DA'].dirty) && f['DA'].invalid">
+                    </div>
+                    <div class="col-md-2">
+                        <label for="DailyRate">DailyRate</label>
+                        <input type="number" formControlName="DailyRate" id="DailyRate" class="form-control">
+                    </div>
+                    <div class="col-md-2">
+                        <label for="HourlyRate">Hourly Rate</label>
+                        <input type="number" formControlName="HourlyRate" id="HourlyRate" class="form-control">
+                    </div>
+                    <div class="col-md-2">
+                        <label for="HRA">HRA</label>
+                        <input type="number" formControlName="HRA" id="HRA" class="form-control">
+                    </div>
+                </div>
+                <div class="row mb-2">
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label for="MedicalAllowance">Medical Allowance</label>
+                            <input type="number" formControlName="MedicalAllowance" id="MedicalAllowance" class="form-control">
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label for="SpecialAllowance">Special Allowance</label>
+                            <input type="number" formControlName="SpecialAllowance" id="SpecialAllowance" class="form-control">
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label for="WorkingDaysPerMonth">Working Days</label>
+                            <input type="number" formControlName="WorkingDaysPerMonth" id="WorkingDaysPerMonth" class="form-control"
+                            [class.is-invalid]="(f['WorkingDaysPerMonth'].touched || f['WorkingDaysPerMonth'].dirty) && f['WorkingDaysPerMonth'].invalid">
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <label for="IsActive">Status</label>
+                        <div class="form-check">
+                            <input type="checkbox" formControlName="IsActive" id="IsActive" class="form-check-input">
+                            <label for="IsActive">Active</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-3 d-grid">
+                        <input type="submit" [disabled]="salaryStructureForm.invalid || salaryStructureForm.value.SalaryStructureId != 0" value="Save" class="btn btn-success">
+                    </div>
+                    <div class="col-md-3 d-grid">
+                        <input type="submit" [disabled]="salaryStructureForm.value.SalaryStructureId == 0" value="Update" class="btn btn-info">
+                    </div>
+                    <div class="col-md-3 d-grid">
+                        <input type="button" [disabled]="salaryStructureForm.value.SalaryStructureId == 0" (click)="openDeleteModal()" value="Delete" class="btn btn-danger">
+                    </div>
+                    <div class="col-md-3 d-grid">
+                        <input type="button" [disabled]="!salaryStructureForm.dirty" (click)="resetForm()" value="Clear" class="btn btn-warning">
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <table class="table table-bordered" *ngIf="empSalStructList.length>0">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Name</th>
+                        <th>Basic</th>
+                        <th>Salary Type</th>
+                        <th>Working Days</th>
+                        <th>Status</th>
+                        <th>Created On</th>
+                        <th>Updated On</th>
+                        <th class="text-center">Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let empsalstruct of empSalStructList;let i=index;">
+                        <td>{{i+1}}</td>
+                        <td>{{empsalstruct.EmployeeName}}</td>
+                        <td>{{empsalstruct.Basic}}</td>
+                        <td>{{empsalstruct.SalaryType}}</td>
+                        <td>{{empsalstruct.WorkingDaysPerMonth}}</td>
+                        <td>{{empsalstruct.IsActive?'Active':'Inactive'}}</td>
+                        <td>{{empsalstruct.CreatedOn | date:'dd-MM-yyyy HH:MM:SS'}}</td>
+                        <td>{{empsalstruct.UpdatedOn | date:'dd-MM-yyyy HH:MM:SS'}}</td>
+                        <td class="text-center">
+                            <button class="btn btn-info" (click)="editSalaryStructureForm(empsalstruct)">
+                                    <i class="bi bi-pencil-square"></i>
+                            </button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+<app-modal-component
+[isOpen]="modalConfig.isModalOpen"
+[title]="modalConfig.title"
+[message]="modalConfig.message"
+[type]="modalConfig.type"
+(close)="handleClose()"
+(confirm)="handleConfirm()">    
+</app-modal-component>

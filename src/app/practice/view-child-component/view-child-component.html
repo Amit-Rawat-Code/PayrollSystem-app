@@ -1,0 +1,34 @@
+<h2>ViewChild & ViewChildren Demo</h2>
+
+<!-- ✅ Form Example -->
+<form #employeeForm="ngForm" (ngSubmit)="submit(employeeForm)">
+  <input
+    #nameInput
+    type="text"
+    name="name"
+    ngModel
+    placeholder="Enter Name"
+  />
+
+  <button type="button" (click)="setDefaultValue()">
+    Set Default Name
+  </button>
+
+  <button type="submit">Submit</button>
+</form>
+
+<hr />
+
+<!-- ✅ Employees List -->
+<h3>Employee List</h3>
+
+<div *ngFor="let emp of employees">
+  <p>
+    {{ emp.name }} -
+    <span #salaryBox>{{ emp.salary }}</span>
+  </p>
+</div>
+
+<button (click)="highlightHighSalary()">
+  Highlight Salary > 10000
+</button>
